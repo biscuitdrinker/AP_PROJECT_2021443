@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.awt.*;
 
 public class Tank {
-    Body body;
+    private Body body;
 
     private float x,y,speed,velx;
 

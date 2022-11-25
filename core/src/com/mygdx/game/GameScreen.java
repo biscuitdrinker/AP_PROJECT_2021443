@@ -22,24 +22,22 @@ import java.util.Iterator;
 public class GameScreen implements Screen {
 
 
-    Tank2 tank2;
-    Terrain land;
+    private Tank2 tank2;
+    private Terrain land;
     final Tankstars game;
 
-    Texture dropImage;
-    Texture TankImage;
+    private Texture dropImage;
+    private Texture TankImage;
 
-    Texture TankImage2;
+    private Texture TankImage2;
 
     private Texture backgroundImage;
     private TextureRegion backgroundTexture;
-    Sound dropSound;
-    Music rainMusic;
 
-    Tank tank;
-    Array<Rectangle> raindrops;
-    long lastDropTime;
-    int dropsGathered;
+
+    private Tank tank;
+    private long lastDropTime;
+    private int dropsGathered;
 
     public GameScreen(final Tankstars game) {
         this.game = game;
@@ -71,19 +69,8 @@ public class GameScreen implements Screen {
 
 
         // create the raindrops array and spawn the first raindrop
-        raindrops = new Array<Rectangle>();
-        spawnRaindrop();
+//        raindrops = new Array<Rectangle>();
 
-    }
-
-    private void spawnRaindrop() {
-        Rectangle raindrop = new Rectangle();
-        raindrop.x = MathUtils.random(0, 800 - 64);
-        raindrop.y = 480;
-        raindrop.width = 64;
-        raindrop.height = 64;
-        raindrops.add(raindrop);
-        lastDropTime = TimeUtils.nanoTime();
     }
 
 

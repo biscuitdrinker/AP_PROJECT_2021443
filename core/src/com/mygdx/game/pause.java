@@ -23,7 +23,7 @@ public class pause implements Screen {
     private final Tankstars game;
     private Texture backgroundImage;
     private TextureRegion backgroundTexture;
-    OrthographicCamera camera;
+    public OrthographicCamera camera;
 
     private TextButton resumebutton;
     private TextButton newgamebutton;

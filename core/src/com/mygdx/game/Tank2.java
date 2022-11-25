@@ -28,9 +28,113 @@ public class Tank2 {
     private double health;
     private double fuel;
 
-    TextureRegion hehe;
+    private TextureRegion hehe;
 
-    Texture tankimg;
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getVelx() {
+        return velx;
+    }
+
+    public void setVelx(float velx) {
+        this.velx = velx;
+    }
+
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
+
+    public void setBodyDef(BodyDef bodyDef) {
+        this.bodyDef = bodyDef;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public double getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
+    }
+
+    public TextureRegion getHehe() {
+        return hehe;
+    }
+
+    public void setHehe(TextureRegion hehe) {
+        this.hehe = hehe;
+    }
+
+    public Texture getTankimg() {
+        return tankimg;
+    }
+
+    public void setTankimg(Texture tankimg) {
+        this.tankimg = tankimg;
+    }
+
+    public float[] getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(float[] vertices) {
+        this.vertices = vertices;
+    }
+
+    private Texture tankimg;
 
 
 

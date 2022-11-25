@@ -7,10 +7,42 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Terrain {
-    Body body;
+    private Body body;
+    private Texture terr;
 
-    Texture terr;
-   static float[] vertices;
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public Texture getTerr() {
+        return terr;
+    }
+
+    public void setTerr(Texture terr) {
+        this.terr = terr;
+    }
+
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
+
+    public void setBodyDef(BodyDef bodyDef) {
+        this.bodyDef = bodyDef;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    static float[] vertices;
 
 
 

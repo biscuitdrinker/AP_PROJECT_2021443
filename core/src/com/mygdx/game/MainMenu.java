@@ -19,6 +19,58 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class MainMenu implements Screen {
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Button getNewGamebutton() {
+        return NewGamebutton;
+    }
+
+    public void setNewGamebutton(Button newGamebutton) {
+        NewGamebutton = newGamebutton;
+    }
+
+    public Button getLoadgamebutton() {
+        return Loadgamebutton;
+    }
+
+    public void setLoadgamebutton(Button loadgamebutton) {
+        Loadgamebutton = loadgamebutton;
+    }
+
+    public Button getQuitbutton() {
+        return quitbutton;
+    }
+
+    public void setQuitbutton(Button quitbutton) {
+        this.quitbutton = quitbutton;
+    }
+
+    public Tankstars getGame() {
+        return game;
+    }
+
+    public Texture getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(Texture backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public TextureRegion getBackgroundTexture() {
+        return backgroundTexture;
+    }
+
+    public void setBackgroundTexture(TextureRegion backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
+    }
+
     private Stage stage;
 
     private Button NewGamebutton;
