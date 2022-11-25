@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -47,8 +48,8 @@ public class GameScreen implements Screen {
         dropImage = new Texture(Gdx.files.internal("drop.png"));
         TankImage = new Texture(Gdx.files.internal("tank1.png"));
         TankImage2 = new Texture(Gdx.files.internal("TANK-2.png"));
-        backgroundImage = new Texture(Gdx.files.internal("img_2.png"));
-        backgroundTexture = new TextureRegion(backgroundImage, -300, -100, 1920, 1229);
+        backgroundImage = new Texture(Gdx.files.internal("bg4.png"));
+        backgroundTexture = new TextureRegion(backgroundImage, -300, -200, 1920, 1229);
         this.land=new Terrain();
 
         // load the drop sound effect and the rain background "music"
@@ -122,6 +123,11 @@ public class GameScreen implements Screen {
 
         game.batch.end();
         game.world.step(1/60f,6,2);
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+            dispose();
+            game.setScreen(new pause(game));
+
+        }
 
         // process user input
 //        if (Gdx.input.isTouched()) {
@@ -142,8 +148,6 @@ public class GameScreen implements Screen {
 //            bucket.x = 800 - 64;
 
         // check if we need to create a new raindrop
-        if (TimeUtils.nanoTime() - lastDropTime > 1000000000)
-            spawnRaindrop();
 
         // move the raindrops, remove any that are beneath the bottom edge of
         // the screen or that hit the bucket. In the later case we increase the
@@ -178,6 +182,7 @@ public class GameScreen implements Screen {
 
     }
 
+
     @Override
     public void hide() {
     }
@@ -192,10 +197,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        dropImage.dispose();
 
-        dropSound.dispose();
-        rainMusic.dispose();
+        TankImage.dispose();
+        TankImage2.dispose();
+
+
+
+
     }
 
 }

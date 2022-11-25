@@ -21,6 +21,86 @@ public class Tank {
     private double health;
     private double fuel;
 
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getVelx() {
+        return velx;
+    }
+
+    public void setVelx(float velx) {
+        this.velx = velx;
+    }
+
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
+
+    public void setBodyDef(BodyDef bodyDef) {
+        this.bodyDef = bodyDef;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public double getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
+    }
+
+    public float[] getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(float[] vertices) {
+        this.vertices = vertices;
+    }
+
     TextureRegion hehe;
 
     Texture tankimg;
@@ -32,7 +112,7 @@ public class Tank {
 
         this.bodyDef=new BodyDef();
         bodyDef.type= BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(Terrain.vertices[49]+50,Terrain.vertices[50]+50);
+        bodyDef.position.set(Terrain.vertices[38]+15,Terrain.vertices[39]+20);
 
         this.health=1000;
         this.fuel=1000;
@@ -52,7 +132,8 @@ public class Tank {
     }
     int[] xpoints={0,12,12,24,24,36};
     int[]ypoints={0,12,18,18,12,0};
-    float[] vertices={0,0,0,12,12,12,12,20,24,20,24,12,36,12,36,0};
+    private float[] vertices={0,0,0,12,12,12,12,20,24,20,24,12,36,12,36,0};
+
 
     public void render(World world){
         body=world.createBody(bodyDef);

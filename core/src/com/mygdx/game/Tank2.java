@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,10 +8,17 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Tank2 {
 
-    Body body;
+    private Body body;
+
+
+
+
 
     private float x,y,speed,velx;
 
@@ -31,7 +39,7 @@ public class Tank2 {
 
         this.bodyDef=new BodyDef();
         bodyDef.type= BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(650,Terrain.vertices[651]+10);
+        bodyDef.position.set(700,Terrain.vertices[701]+15);
 
         this.health=1000;
         this.fuel=1000;
@@ -51,7 +59,7 @@ public class Tank2 {
     }
     int[] xpoints={0,12,12,24,24,36};
     int[]ypoints={0,12,18,18,12,0};
-    float[] vertices={0,0,0,12,12,12,12,20,24,20,24,12,36,12,36,0};
+    private float[] vertices={0,0,0,12,12,12,12,20,24,20,24,12,36,12,36,0};
 
     public void render(World world){
         body=world.createBody(bodyDef);
