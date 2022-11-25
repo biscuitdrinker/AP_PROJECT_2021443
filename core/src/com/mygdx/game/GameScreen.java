@@ -24,7 +24,92 @@ public class GameScreen implements Screen {
 
     private Tank2 tank2;
     private Terrain land;
-    final Tankstars game;
+
+    public Tank2 getTank2() {
+        return tank2;
+    }
+
+    public void setTank2(Tank2 tank2) {
+        this.tank2 = tank2;
+    }
+
+    public Terrain getLand() {
+        return land;
+    }
+
+    public void setLand(Terrain land) {
+        this.land = land;
+    }
+
+    public Tankstars getGame() {
+        return game;
+    }
+
+    public Texture getDropImage() {
+        return dropImage;
+    }
+
+    public void setDropImage(Texture dropImage) {
+        this.dropImage = dropImage;
+    }
+
+    public Texture getTankImage() {
+        return TankImage;
+    }
+
+    public void setTankImage(Texture tankImage) {
+        TankImage = tankImage;
+    }
+
+    public Texture getTankImage2() {
+        return TankImage2;
+    }
+
+    public void setTankImage2(Texture tankImage2) {
+        TankImage2 = tankImage2;
+    }
+
+    public Texture getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(Texture backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public TextureRegion getBackgroundTexture() {
+        return backgroundTexture;
+    }
+
+    public void setBackgroundTexture(TextureRegion backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
+    }
+
+    public Tank getTank() {
+        return tank;
+    }
+
+    public void setTank(Tank tank) {
+        this.tank = tank;
+    }
+
+    public long getLastDropTime() {
+        return lastDropTime;
+    }
+
+    public void setLastDropTime(long lastDropTime) {
+        this.lastDropTime = lastDropTime;
+    }
+
+    public int getDropsGathered() {
+        return dropsGathered;
+    }
+
+    public void setDropsGathered(int dropsGathered) {
+        this.dropsGathered = dropsGathered;
+    }
+
+    private final Tankstars game;
 
     private Texture dropImage;
     private Texture TankImage;
