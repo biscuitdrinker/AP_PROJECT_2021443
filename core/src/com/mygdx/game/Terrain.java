@@ -1,48 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.ChainShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 public class Terrain {
-    private Body body;
-    private Texture terr;
+    Body body;
 
-    public Body getBody() {
-        return body;
-    }
-
-    public void setBody(Body body) {
-        this.body = body;
-    }
-
-    public Texture getTerr() {
-        return terr;
-    }
-
-    public void setTerr(Texture terr) {
-        this.terr = terr;
-    }
-
-    public BodyDef getBodyDef() {
-        return bodyDef;
-    }
-
-    public void setBodyDef(BodyDef bodyDef) {
-        this.bodyDef = bodyDef;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    static float[] vertices;
+    Texture terr;
+   static float[] vertices;
 
 
 
@@ -77,7 +42,9 @@ public class Terrain {
         body= world.createBody(bodyDef);
         ChainShape chain=new ChainShape();
         chain.createChain(vertices);
+
         body.createFixture(chain,100000);
+
 
 
     }

@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.awt.*;
 
 public class Tank {
-    private Body body;
+   private Body body;
 
     private float x,y,speed,velx;
 
@@ -126,7 +128,18 @@ public class Tank {
 
     }
   public  void update(SpriteBatch batch){
-        batch.draw(hehe,body.getPosition().x,body.getPosition().y,45,30,45,30,1,1,(float)Math.toDegrees(body.getAngle()));
+      batch.draw(hehe,body.getPosition().x,body.getPosition().y,0,0,45,30,1,1,(float)Math.toDegrees(body.getAngle()));
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            velx=10;
+        }
+        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            velx=-10;
+        }else{
+            velx=0;
+        }
+        body.setLinearVelocity(velx,0);
+
+
 
 
     }
@@ -139,6 +152,7 @@ public class Tank {
         body=world.createBody(bodyDef);
         PolygonShape tanky=new PolygonShape();
         tanky.set(vertices);
+        body.setGravityScale(2);
         body.createFixture(tanky,1000);
 
 

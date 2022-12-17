@@ -11,14 +11,54 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Tankstars extends Game {
 
-    public SpriteBatch batch;
+    private SpriteBatch batch;
 
-    OrthographicCamera camera;
-    public BitmapFont font;
+    private OrthographicCamera camera;
+    private  BitmapFont font;
 
-    World world;
+    private World world;
 
-    Box2DDebugRenderer box2DDebugRenderer;
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
+    }
+
+    public BitmapFont getFont() {
+        return font;
+    }
+
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public Box2DDebugRenderer getBox2DDebugRenderer() {
+        return box2DDebugRenderer;
+    }
+
+    public void setBox2DDebugRenderer(Box2DDebugRenderer box2DDebugRenderer) {
+        this.box2DDebugRenderer = box2DDebugRenderer;
+    }
+
+    private Box2DDebugRenderer box2DDebugRenderer;
 
 
 

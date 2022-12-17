@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Tank2 {
 
-    private Body body;
+    private Body body1;
 
 
 
@@ -28,113 +29,9 @@ public class Tank2 {
     private double health;
     private double fuel;
 
-    private TextureRegion hehe;
+    TextureRegion hehe;
 
-    public Body getBody() {
-        return body;
-    }
-
-    public void setBody(Body body) {
-        this.body = body;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getVelx() {
-        return velx;
-    }
-
-    public void setVelx(float velx) {
-        this.velx = velx;
-    }
-
-    public BodyDef getBodyDef() {
-        return bodyDef;
-    }
-
-    public void setBodyDef(BodyDef bodyDef) {
-        this.bodyDef = bodyDef;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
-    public double getHealth() {
-        return health;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    public double getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(double fuel) {
-        this.fuel = fuel;
-    }
-
-    public TextureRegion getHehe() {
-        return hehe;
-    }
-
-    public void setHehe(TextureRegion hehe) {
-        this.hehe = hehe;
-    }
-
-    public Texture getTankimg() {
-        return tankimg;
-    }
-
-    public void setTankimg(Texture tankimg) {
-        this.tankimg = tankimg;
-    }
-
-    public float[] getVertices() {
-        return vertices;
-    }
-
-    public void setVertices(float[] vertices) {
-        this.vertices = vertices;
-    }
-
-    private Texture tankimg;
+    Texture tankimg;
 
 
 
@@ -157,8 +54,17 @@ public class Tank2 {
 
     }
     public  void update(SpriteBatch batch){
-        batch.draw(hehe,body.getPosition().x,body.getPosition().y,45,30,45,30,1,1,(float)Math.toDegrees(body.getAngle()));
+        batch.draw(hehe,body1.getPosition().x-10,body1.getPosition().y,5,0,45,30,1,1,(float)Math.toDegrees(body1.getAngle()));
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            velx=-10;
 
+        }
+        else if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            velx=10;
+        }else{
+            velx=0;
+        }
+        body1.setLinearVelocity(velx,0);
 
     }
     int[] xpoints={0,12,12,24,24,36};
@@ -166,10 +72,11 @@ public class Tank2 {
     private float[] vertices={0,0,0,12,12,12,12,20,24,20,24,12,36,12,36,0};
 
     public void render(World world){
-        body=world.createBody(bodyDef);
+        body1=world.createBody(bodyDef);
         PolygonShape tanky=new PolygonShape();
         tanky.set(vertices);
-        body.createFixture(tanky,1000);
+        body1.setGravityScale(2);
+        body1.createFixture(tanky,1000);
 
 
 

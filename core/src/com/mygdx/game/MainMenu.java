@@ -79,8 +79,19 @@ public class MainMenu implements Screen {
     private final Tankstars game;
     private Texture backgroundImage;
     private TextureRegion backgroundTexture;
-    OrthographicCamera camera;
+    private OrthographicCamera camera;
 
+
+
+
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
+    }
 
     public MainMenu(final Tankstars game) {
         this.game = game;
@@ -123,7 +134,7 @@ public class MainMenu implements Screen {
 
         backgroundTexture = new TextureRegion(backgroundImage, -120, 0, 800, 400);
        // camera = new OrthographicCamera();
-        game.camera.setToOrtho(false, 800, 480);
+        game.getCamera().setToOrtho(false, 800, 480);
         stage.addActor(NewGamebutton);
         stage.addActor(Loadgamebutton);
         stage.addActor(quitbutton);
@@ -138,11 +149,11 @@ public class MainMenu implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
 
-        game.camera.update();
-        game.batch.setProjectionMatrix(game.camera.combined);
+        game.getCamera().update();
+        game.getBatch().setProjectionMatrix(game.getCamera().combined);
 
-        game.batch.begin();
-        game.batch.draw(backgroundTexture, 0,0, 800, 480);
+        game.getBatch().begin();
+        game.getBatch().draw(backgroundTexture, 0,0, 800, 480);
 
 
 
@@ -151,7 +162,7 @@ public class MainMenu implements Screen {
 //        game.font.draw(game.batch, "2) LOAD GAME", 340, 100);
 //        game.font.draw(game.batch,"3) EXIT GAME",340,60);
 
-        game.batch.end();
+        game.getBatch().end();
         stage.act(delta);
         stage.draw();
 

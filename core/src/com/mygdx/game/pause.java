@@ -23,7 +23,7 @@ public class pause implements Screen {
     private final Tankstars game;
     private Texture backgroundImage;
     private TextureRegion backgroundTexture;
-    public OrthographicCamera camera;
+    OrthographicCamera camera;
 
     private TextButton resumebutton;
     private TextButton newgamebutton;
@@ -78,7 +78,7 @@ public class pause implements Screen {
             }
         });
         //camera = new OrthographicCamera();
-        game.camera.setToOrtho(false, 800, 400);
+        game.getCamera().setToOrtho(false, 800, 400);
         this.stage.addActor(newgamebutton);
         this.stage.addActor(resumebutton);
         this.stage.addActor(quit);
@@ -95,15 +95,15 @@ public class pause implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
 
-        game.camera.update();
-        game.batch.setProjectionMatrix(game.camera.combined);
+        game.getCamera().update();
+        game.getBatch().setProjectionMatrix(game.getCamera().combined);
 
-        game.batch.begin();
-        game.batch.draw(backgroundTexture, 0,-50, 800, 480);
+        game.getBatch().begin();
+        game.getBatch().draw(backgroundTexture, 0,-50, 800, 480);
 
-        game.font.getData().setScale(2,2);
-        game.font.draw(game.batch, "YOUR GAME IS PAUSED", 240, 300);
-        game.font.getData().setScale(1,1);
+        game.getFont().getData().setScale(2,2);
+        game.getFont().draw(game.getBatch(), "YOUR GAME IS PAUSED", 240, 300);
+        game.getFont().getData().setScale(1,1);
 
 
 //        game.font.draw(game.batch, "1) RESUME", 340, 250);
@@ -112,7 +112,7 @@ public class pause implements Screen {
 //        game.font.draw(game.batch, "4) QUIT", 340, 100);
 
 
-        game.batch.end();
+        game.getBatch().end();
         this.stage.act(delta);
         this.stage.draw();
 
