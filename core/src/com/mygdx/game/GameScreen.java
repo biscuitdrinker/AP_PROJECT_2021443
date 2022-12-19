@@ -22,9 +22,12 @@ import java.util.Iterator;
 public class GameScreen implements Screen {
 
 
-    Tank2 tank2;
-    Terrain land;
-    final Tankstars game;
+
+    static boolean ismissile;
+
+
+    private Terrain land;
+    static Tankstars game;
 
     Texture dropImage;
     Texture TankImage;
@@ -36,16 +39,50 @@ public class GameScreen implements Screen {
     Sound dropSound;
     Music rainMusic;
 
-    Tank tank;
+    private Tank tank;
     Array<Rectangle> raindrops;
     long lastDropTime;
     int dropsGathered;
+    static Tank2 tank2;
 
+    public  Tank2 getTank2() {
+        return tank2;
+    }
+
+    public void setTank2(Tank2 tank2) {
+        this.tank2 = tank2;
+    }
+
+    public Terrain getLand() {
+        return land;
+    }
+
+    public void setLand(Terrain land) {
+        this.land = land;
+    }
+
+    public Tank getTank() {
+        return tank;
+    }
+
+    public void setTank(Tank tank) {
+        this.tank = tank;
+    }
+
+    public Missile getMissile() {
+        return missile;
+    }
+
+    public void setMissile(Missile missile) {
+        this.missile = missile;
+    }
+
+    private Missile missile;
     public GameScreen(final Tankstars game) {
         this.game = game;
 
         // load the images for the droplet and the bucket, 64x64 pixels each
-        dropImage = new Texture(Gdx.files.internal("drop.png"));
+
         TankImage = new Texture(Gdx.files.internal("tank1.png"));
         TankImage2 = new Texture(Gdx.files.internal("TANK-2.png"));
         backgroundImage = new Texture(Gdx.files.internal("bg4.png"));
@@ -64,6 +101,9 @@ public class GameScreen implements Screen {
         // create a Rectangle to logically represent the bucket
         tank = new Tank(TankImage);
         tank2= new Tank2(TankImage2);
+        missile=new Missile(tank);
+
+
 
         // bottom left corner of the bucket is 20 pixels above
         // the bottom screen edge
@@ -71,8 +111,7 @@ public class GameScreen implements Screen {
 
 
         // create the raindrops array and spawn the first raindrop
-        raindrops = new Array<Rectangle>();
-        spawnRaindrop();
+
 
     }
 
@@ -110,6 +149,7 @@ public class GameScreen implements Screen {
         game.getBatch().draw(backgroundTexture, 0, 0, 800, 480);
         tank.update(game.getBatch());
         tank2.update(game.getBatch());
+        missile.update(game.getBatch());
 
 
         game.getFont().draw(game.getBatch(), "Drops Collected: " + dropsGathered, 0, 480);
@@ -154,6 +194,7 @@ public class GameScreen implements Screen {
 
         tank.render(game.getWorld());
         tank2.render(game.getWorld());
+        missile.render(game.getWorld());
 
     }
 

@@ -24,7 +24,7 @@ public class Tank {
     private double fuel;
 
     public float getX() {
-        return x;
+        return body.getPosition().x;
     }
 
     public void setX(float x) {
@@ -32,7 +32,7 @@ public class Tank {
     }
 
     public float getY() {
-        return y;
+        return body.getPosition().y;
     }
 
     public void setY(float y) {
@@ -137,6 +137,11 @@ public class Tank {
         }else{
             velx=0;
         }
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+//            Missile missile=new Missile(this);
+//            velx=0;
+//            missile.update(GameScreen.game.getBatch());
+//        }
         body.setLinearVelocity(velx,0);
 
 

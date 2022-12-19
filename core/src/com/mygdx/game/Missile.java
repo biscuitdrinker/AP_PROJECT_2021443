@@ -5,21 +5,35 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Missile {
-    private Body body;
+
+    private int angle;
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
+    }
+
+    private Tank tank;
+
+    private Tank2 tank2=GameScreen.tank2;
+    private Body body3;
 
     private float x,y,speed,velx;
 
     private BodyDef bodyDef;
 
     private float width,height;
-    private double health;
-    private double fuel;
+
 
     public float getX() {
         return x;
@@ -77,21 +91,7 @@ public class Missile {
         this.height = height;
     }
 
-    public double getHealth() {
-        return health;
-    }
 
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    public double getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(double fuel) {
-        this.fuel = fuel;
-    }
 
     public float[] getVertices() {
         return vertices;
@@ -103,15 +103,16 @@ public class Missile {
 
     TextureRegion hehe;
 
-    Texture missileimg;
-    public Missile(Texture tankimg){
+    Texture missileimg=new Texture(Gdx.files.internal("missile.png"));
+    public Missile(Tank tank){
 
         this.bodyDef=new BodyDef();
-        bodyDef.type= BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(Terrain.vertices[38]+15,Terrain.vertices[39]+20);
 
-        this.health=1000;
-        this.fuel=1000;
+        bodyDef.type= BodyDef.BodyType.DynamicBody;
+        this.tank=tank;
+
+
+
         this.hehe=new TextureRegion(missileimg);
 
         this.speed=4;
@@ -122,24 +123,32 @@ public class Missile {
 
     }
     public  void update(SpriteBatch batch){
-        batch.draw(hehe,body.getPosition().x,body.getPosition().y,0,0,45,30,1,1,(float)Math.toDegrees(body.getAngle()));
-
+        batch.draw(hehe,body3.getPosition().x,body3.getPosition().y,0,0,30,15,1,1,(float)Math.toDegrees(body3.getAngle()));
+        if(body3.getPosition().x-tank2.getX()<36 && body3.getPosition().y-tank2.getY()<15){
+            body3.setLinearVelocity(0,50);
+            tank2.setHealth(tank2.getHealth()-30);
+        }
 
 
 
 
     }
-    int[] xpoints={0,12,12,24,24,36};
-    int[]ypoints={0,12,18,18,12,0};
-    private float[] vertices={0,0,0,12,12,12,12,20,24,20,24,12,36,12,36,0};
+
+    private float[] vertices={0,0,0,12,30,12,30,0};
 
 
     public void render(World world){
-        body=world.createBody(bodyDef);
-        PolygonShape tanky=new PolygonShape();
-        tanky.set(vertices);
-        body.setGravityScale(2);
-        body.createFixture(tanky,1000);
+        bodyDef.position.set(tank.getX(),tank.getY()+70);
+        body3=world.createBody(bodyDef);
+        PolygonShape missy=new PolygonShape();
+        missy.set(vertices);
+
+
+        body3.createFixture(missy,100);
+        Vector2 traj = new Vector2(0, 70);
+        traj.rotateDeg(300);
+        body3.setLinearVelocity(traj);
+        body3.setTransform(body3.getPosition(), (float)Math.atan(body3.getLinearVelocity().y / body3.getLinearVelocity().x));
 
 
 

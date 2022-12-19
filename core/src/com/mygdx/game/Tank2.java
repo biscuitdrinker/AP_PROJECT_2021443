@@ -27,7 +27,95 @@ public class Tank2 {
 
     private float width,height;
     private double health;
+
+    public Body getBody1() {
+        return body1;
+    }
+
+    public void setBody1(Body body1) {
+        this.body1 = body1;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getVelx() {
+        return velx;
+    }
+
+    public void setVelx(float velx) {
+        this.velx = velx;
+    }
+
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
+
+    public void setBodyDef(BodyDef bodyDef) {
+        this.bodyDef = bodyDef;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public double getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
+    }
+
+    public float[] getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(float[] vertices) {
+        this.vertices = vertices;
+    }
+
     private double fuel;
+    public float getX() {
+        return body1.getPosition().x;
+    }
+    public float getY() {
+        return body1.getPosition().y;
+    }
+
 
     TextureRegion hehe;
 
