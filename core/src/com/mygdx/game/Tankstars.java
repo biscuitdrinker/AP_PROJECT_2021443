@@ -1,12 +1,13 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 
 public class Tankstars extends Game {
@@ -66,6 +67,47 @@ public class Tankstars extends Game {
     public void create() {
         batch = new SpriteBatch();
         world= new World(new Vector2(0,-9.8f),true);
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
+        world.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+
+                if(contact.getFixtureA().getUserData()!=null && contact.getFixtureA().getUserData().toString().equals("misfix")) {
+                    if(contact.getFixtureB().getUserData()!=null && contact.getFixtureB().getUserData().toString().equals("Tanky")){
+                        Missile.setDestroy2(true,true);
+
+
+                    }else {
+                        Missile.setDestroy2(true,false);
+                    }
+                }
+                else if(contact.getFixtureB().getUserData()!=null && contact.getFixtureB().getUserData().toString().equals("misfix")) {
+                        if(contact.getFixtureA().getUserData()!=null && contact.getFixtureA().getUserData().toString().equals("Tanky")){
+                            Missile.setDestroy2(true,true);
+                        }
+                        else {
+                            Missile.setDestroy2(true,false);
+                        }
+                }
+
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+            }
+        });
         font = new BitmapFont(); // use libGDX's default Arial font
         this.box2DDebugRenderer=new Box2DDebugRenderer();
         this.camera= new OrthographicCamera();

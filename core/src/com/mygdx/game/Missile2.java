@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,45 +13,35 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Missile {
-
-     private static boolean destroy2;
+public class Missile2 {
+    private static boolean destroy2;
 
     public boolean isDestroy2() {
         return destroy2;
     }
 
 
-
+    private boolean destroyed;
 
 
     private static boolean istank;
     public static void setDestroy2(boolean destroy2,boolean istank) {
-       Missile.istank=istank;
-        Missile.destroy2 = destroy2;
+        Missile2.istank=istank;
+        Missile2.destroy2 = destroy2;
     }
 
     public boolean isDestroyed() {
         return destroyed;
     }
 
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
-    }
 
-    private boolean destroyed;
 
-    private int angle;
 
-    public int getAngle() {
-        return angle;
-    }
 
-    public void setAngle(int angle) {
-        this.angle = angle;
-    }
 
-    private Tank tank;
+
+
+    private Tank tank=GameScreen.tank;
 
     private Tank2 tank2=GameScreen.tank2;
     private Body body3;
@@ -118,6 +110,7 @@ public class Missile {
     }
 
 
+
     public float[] getVertices() {
         return vertices;
     }
@@ -128,16 +121,16 @@ public class Missile {
 
     TextureRegion hehe;
 
-    Texture missileimg=new Texture(Gdx.files.internal("missile.png"));
-    public Missile(Tank tank){
+    Texture missileimg=new Texture(Gdx.files.internal("missile2.png"));
+    public Missile2(){
 
         this.bodyDef=new BodyDef();
 
         bodyDef.type= BodyDef.BodyType.DynamicBody;
-        this.tank=tank;
 
         this.destroyed=false;
         destroy2=false;
+
 
         this.hehe=new TextureRegion(missileimg);
 
@@ -154,16 +147,15 @@ public class Missile {
 
             if (destroy2==true ) {
                 GameScreen.game.getWorld().destroyBody(body3);
-                if(Missile.istank==true) {
+                if(Missile2.istank==true) {
                     tank2.setHealth(tank2.getHealth() - 30);
-                    Missile.istank=false;
+                    Missile2.istank=false;
                 }
                 this.destroyed=true;
                 destroy2=false;
 
 
             }
-        }
 
 
 
@@ -174,15 +166,15 @@ public class Missile {
 
 
     public void render(World world){
-        bodyDef.position.set(tank.getX(),tank.getY()+70);
+        bodyDef.position.set(tank2.getX(),tank2.getY()+70);
         body3=world.createBody(bodyDef);
         PolygonShape missy=new PolygonShape();
         missy.set(vertices);
 
 
-        body3.createFixture(missy,100).setUserData("misfix");
-        Vector2 traj = new Vector2(0, 75);
-        traj.rotateDeg(300);
+        body3.createFixture(missy,100);
+        Vector2 traj = new Vector2(0, tank2.getPower());
+        traj.rotateDeg(tank2.getAngle());
         body3.setLinearVelocity(traj);
         body3.setTransform(body3.getPosition(), (float)Math.atan(body3.getLinearVelocity().y / body3.getLinearVelocity().x));
 

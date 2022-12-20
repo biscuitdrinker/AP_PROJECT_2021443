@@ -13,7 +13,28 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.awt.*;
 
 public class Tank {
-   private Body body;
+
+    private int angle;
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
+    }
+
+    private int power;
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    private Body body;
 
     private float x,y,speed,velx;
 
@@ -158,7 +179,7 @@ public class Tank {
         PolygonShape tanky=new PolygonShape();
         tanky.set(vertices);
         body.setGravityScale(2);
-        body.createFixture(tanky,1000);
+        body.createFixture(tanky,1000).setUserData("Tanky");
 
 
 

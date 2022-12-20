@@ -16,6 +16,26 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class Tank2 {
 
     private Body body1;
+    private int power;
+    private int angle;
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+
 
 
 
@@ -164,7 +184,7 @@ public class Tank2 {
         PolygonShape tanky=new PolygonShape();
         tanky.set(vertices);
         body1.setGravityScale(2);
-        body1.createFixture(tanky,1000);
+        body1.createFixture(tanky,1000).setUserData("Tanky");
 
 
 

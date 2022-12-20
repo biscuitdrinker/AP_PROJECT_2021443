@@ -23,9 +23,9 @@ public class GameScreen implements Screen {
 
 
 
-    static boolean ismissile;
 
 
+    private Missile2 missile2;
     private Terrain land;
     static Tankstars game;
 
@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
     Sound dropSound;
     Music rainMusic;
 
-    private Tank tank;
+    static boolean ismissile;
     Array<Rectangle> raindrops;
     long lastDropTime;
     int dropsGathered;
@@ -56,7 +56,7 @@ public class GameScreen implements Screen {
     public Terrain getLand() {
         return land;
     }
-
+    static Tank tank;
     public void setLand(Terrain land) {
         this.land = land;
     }
@@ -102,6 +102,8 @@ public class GameScreen implements Screen {
         tank = new Tank(TankImage);
         tank2= new Tank2(TankImage2);
         missile=new Missile(tank);
+        missile2=new Missile2();
+       // missile.setDestroyed(false);
 
 
 
@@ -147,12 +149,29 @@ public class GameScreen implements Screen {
 
         game.getBatch().begin();
         game.getBatch().draw(backgroundTexture, 0, 0, 800, 480);
+        game.getFont().draw(game.getBatch(), "PLAYER 1", 0, 470);
+        game.getFont().draw(game.getBatch(), "PLAYER 2", 720, 470);
+        game.getFont().draw(game.getBatch(), "HEALTH:"+ tank.getHealth(), 0, 450);
+        game.getFont().draw(game.getBatch(), "HEALTH:"+ tank2.getHealth(), 720, 450);
+        game.getFont().draw(game.getBatch(), "POWER "+ tank.getPower(), 0, 430);
+        game.getFont().draw(game.getBatch(), "POWER "+ tank2.getPower(), 720, 430);
+     game.getFont().draw(game.getBatch(), "ANGLE"+ tank.getAngle(), 0, 410);
+     game.getFont().draw(game.getBatch(), "ANGLE"+ tank2.getAngle(), 720, 430);
+
+
+
+
+
+
+
+
         tank.update(game.getBatch());
         tank2.update(game.getBatch());
         missile.update(game.getBatch());
+        missile2.update(game.getBatch());
 
 
-        game.getFont().draw(game.getBatch(), "Drops Collected: " + dropsGathered, 0, 480);
+
 
 
         // game.batch.draw(dropImage, 100, 100, 45, 30);
@@ -196,6 +215,7 @@ public class GameScreen implements Screen {
         tank2.render(game.getWorld());
         missile.render(game.getWorld());
 
+
     }
 
 
@@ -216,6 +236,7 @@ public class GameScreen implements Screen {
 
         TankImage.dispose();
         TankImage2.dispose();
+
 
 
 
