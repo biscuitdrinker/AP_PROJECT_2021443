@@ -78,17 +78,18 @@ public class Tankstars extends Game {
                         Missile.setDestroy2(true,true);
 
 
+
                     }else {
                         Missile.setDestroy2(true,false);
                     }
                 }
                 else if(contact.getFixtureB().getUserData()!=null && contact.getFixtureB().getUserData().toString().equals("misfix")) {
-                        if(contact.getFixtureA().getUserData()!=null && contact.getFixtureA().getUserData().toString().equals("Tanky")){
-                            Missile.setDestroy2(true,true);
-                        }
-                        else {
-                            Missile.setDestroy2(true,false);
-                        }
+                    if(contact.getFixtureA().getUserData()!=null && contact.getFixtureA().getUserData().toString().equals("Tanky")){
+                        Missile.setDestroy2(true,true);
+                    }
+                    else {
+                        Missile.setDestroy2(true,false);
+                    }
                 }
 
             }

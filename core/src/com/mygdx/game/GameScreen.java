@@ -16,16 +16,52 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 
-public class GameScreen implements Screen {
+import static java.lang.System.out;
+
+public class GameScreen implements Screen, Serializable {
 
 
+    private static GameScreen current;
 
+    public static GameScreen getCurrent() {
+        return current;
+    }
 
+    public static void setCurrent(GameScreen current) {
+        GameScreen.current = current;
+    }
 
-    private Missile2 missile2;
+    public static boolean isWait() {
+        return wait;
+    }
+
+    public static void setWait(boolean wait) {
+        GameScreen.wait = wait;
+    }
+
+    private static boolean wait;
+    private static boolean isfired;
+
+    public static boolean isIsfired() {
+        return isfired;
+    }
+
+    public static void setIsfired(boolean isfired) {
+        GameScreen.isfired = isfired;
+    }
+
+    //private Missile2 missile2;
     private Terrain land;
     static Tankstars game;
 
@@ -36,13 +72,13 @@ public class GameScreen implements Screen {
 
     private Texture backgroundImage;
     private TextureRegion backgroundTexture;
-    Sound dropSound;
-    Music rainMusic;
+    transient Sound dropSound;
+    transient Music rainMusic;
 
     static boolean ismissile;
-    Array<Rectangle> raindrops;
-    long lastDropTime;
-    int dropsGathered;
+    transient Array<Rectangle> raindrops;
+    transient  long lastDropTime;
+    transient int dropsGathered;
     static Tank2 tank2;
 
     public  Tank2 getTank2() {
@@ -77,13 +113,25 @@ public class GameScreen implements Screen {
         this.missile = missile;
     }
 
-    private Missile missile;
-    public GameScreen(final Tankstars game) {
+    private transient Missile missile;
+
+    private  transient Missile missile2;
+
+    public Missile getMissile2() {
+        return missile2;
+    }
+
+    public void setMissile2(Missile missile2) {
+        this.missile2 = missile2;
+    }
+    private transient Texture Tankimage;
+
+    public GameScreen(final Tankstars game,Texture TankImage) {
         this.game = game;
-
+        current=this;
         // load the images for the droplet and the bucket, 64x64 pixels each
-
-        TankImage = new Texture(Gdx.files.internal("tank1.png"));
+        this.TankImage=TankImage;
+        //TankImage = new Texture(Gdx.files.internal("tank1.png"));
         TankImage2 = new Texture(Gdx.files.internal("TANK-2.png"));
         backgroundImage = new Texture(Gdx.files.internal("bg4.png"));
         backgroundTexture = new TextureRegion(backgroundImage, -300, -200, 1920, 1229);
@@ -96,14 +144,24 @@ public class GameScreen implements Screen {
 
         // create the camera and the SpriteBatch
         game.setCamera(new OrthographicCamera()) ;
-       game.getCamera().setToOrtho(false, 800, 480);
+        game.getCamera().setToOrtho(false, 800, 480);
 
         // create a Rectangle to logically represent the bucket
         tank = new Tank(TankImage);
         tank2= new Tank2(TankImage2);
-        missile=new Missile(tank);
-        missile2=new Missile2();
-       // missile.setDestroyed(false);
+        missile=new Missile(tank,tank2);
+        missile2=new Missile(tank2,tank);
+        if(wait==true){
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+
+            }finally {
+                game.setScreen(new MainMenu(game));
+            }
+        }
+        //  missile2=new Missile2();
+        // missile.setDestroyed(false);
 
 
 
@@ -150,13 +208,15 @@ public class GameScreen implements Screen {
         game.getBatch().begin();
         game.getBatch().draw(backgroundTexture, 0, 0, 800, 480);
         game.getFont().draw(game.getBatch(), "PLAYER 1", 0, 470);
-        game.getFont().draw(game.getBatch(), "PLAYER 2", 720, 470);
-        game.getFont().draw(game.getBatch(), "HEALTH:"+ tank.getHealth(), 0, 450);
-        game.getFont().draw(game.getBatch(), "HEALTH:"+ tank2.getHealth(), 720, 450);
+        game.getFont().draw(game.getBatch(), "PLAYER 2", 700, 470);
+        game.getFont().draw(game.getBatch(), "HEALTH "+ tank.getHealth(), 0, 450);
+        game.getFont().draw(game.getBatch(), "HEALTH "+ tank2.getHealth(), 700, 450);
         game.getFont().draw(game.getBatch(), "POWER "+ tank.getPower(), 0, 430);
-        game.getFont().draw(game.getBatch(), "POWER "+ tank2.getPower(), 720, 430);
-     game.getFont().draw(game.getBatch(), "ANGLE"+ tank.getAngle(), 0, 410);
-     game.getFont().draw(game.getBatch(), "ANGLE"+ tank2.getAngle(), 720, 430);
+        game.getFont().draw(game.getBatch(), "POWER "+ tank2.getPower(), 700, 430);
+        game.getFont().draw(game.getBatch(), "ANGLE "+ tank.getAngle(), 0, 410);
+        game.getFont().draw(game.getBatch(), "ANGLE "+ tank2.getAngle(), 700, 410);
+        game.getFont().draw(game.getBatch(), "FUEL "+ tank.getFuel(), 0, 390);
+        game.getFont().draw(game.getBatch(), "FUEL "+ tank2.getFuel(), 700, 390);
 
 
 
@@ -167,7 +227,9 @@ public class GameScreen implements Screen {
 
         tank.update(game.getBatch());
         tank2.update(game.getBatch());
+
         missile.update(game.getBatch());
+
         missile2.update(game.getBatch());
 
 
@@ -176,10 +238,11 @@ public class GameScreen implements Screen {
 
         // game.batch.draw(dropImage, 100, 100, 45, 30);
 
-        game.getBox2DDebugRenderer().render(game.getWorld(), game.getCamera().combined);
 
 
         game.getBatch().end();
+
+        game.getBox2DDebugRenderer().render(game.getWorld(), game.getCamera().combined);
         float accumulator = 0.1f;
 
 
@@ -194,10 +257,50 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-            dispose();
+            current=this;
             game.setScreen(new pause(game));
 
         }
+        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+            if(isfired==false) {
+                missile.setDestroyed(false);
+
+                missile.render(game.getWorld());
+            }
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)){
+            if(isfired==false) {
+                missile2.setDestroyed(false);
+
+                missile2.render(game.getWorld());
+            }
+        }
+        else if(Gdx.input.isKeyPressed(Keys.UP)){
+            tank.setPower(tank.getPower()+1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.DOWN)){
+            tank.setPower(tank.getPower()-1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.O)){
+            tank.setAngle(tank.getAngle()+1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.L)){
+            tank.setAngle(tank.getAngle()-1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.W)){
+            tank2.setPower(tank2.getPower()+1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.S)){
+            tank2.setPower(tank2.getPower()-1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.I)){
+            tank2.setAngle(tank2.getAngle()+1);
+        }
+        else if(Gdx.input.isKeyPressed(Keys.K)){
+            tank2.setAngle(tank2.getAngle()-1);
+        }
+
+
 
     }
     @Override
@@ -208,13 +311,13 @@ public class GameScreen implements Screen {
     public void show() {
         // start the playback of the background music
         // when the screen is shown
-       // rainMusic.play();
+        // rainMusic.play();
         land.render(game.getWorld());
 
         tank.render(game.getWorld());
         tank2.render(game.getWorld());
+        missile2.render(game.getWorld());
         missile.render(game.getWorld());
-
 
     }
 
@@ -236,11 +339,33 @@ public class GameScreen implements Screen {
 
         TankImage.dispose();
         TankImage2.dispose();
-
+        game.getWorld().destroyBody(tank.body);
+        game.getWorld().destroyBody(tank2.body);
 
 
 
 
     }
-
+    public static void writes(Serializable st, int i) {
+        try {
+            ObjectOutputStream  out = new ObjectOutputStream(Files.newOutputStream(Paths.get("output" + i)));
+            out.writeObject(st);
+            out.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static GameScreen reads(int i) {
+        GameScreen t;
+        try {
+            ObjectInputStream  inp = new ObjectInputStream(Files.newInputStream(Paths.get("output" + i)));
+            t = (GameScreen) inp.readObject();
+            inp.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return t;
+    }
 }
+
+

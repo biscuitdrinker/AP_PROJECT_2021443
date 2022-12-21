@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Missile {
 
-     private static boolean destroy2;
+    private static boolean destroy2;
 
     public boolean isDestroy2() {
         return destroy2;
@@ -25,7 +25,7 @@ public class Missile {
 
     private static boolean istank;
     public static void setDestroy2(boolean destroy2,boolean istank) {
-       Missile.istank=istank;
+        Missile.istank=istank;
         Missile.destroy2 = destroy2;
     }
 
@@ -51,7 +51,7 @@ public class Missile {
 
     private Tank tank;
 
-    private Tank2 tank2=GameScreen.tank2;
+    private Tank tank2;
     private Body body3;
 
     private float x,y,speed,velx;
@@ -129,7 +129,7 @@ public class Missile {
     TextureRegion hehe;
 
     Texture missileimg=new Texture(Gdx.files.internal("missile.png"));
-    public Missile(Tank tank){
+    public Missile(Tank tank,Tank tank2){
 
         this.bodyDef=new BodyDef();
 
@@ -138,7 +138,7 @@ public class Missile {
 
         this.destroyed=false;
         destroy2=false;
-
+        this.tank2=tank2;
         this.hehe=new TextureRegion(missileimg);
 
 
@@ -148,16 +148,23 @@ public class Missile {
     }
     public  void update(SpriteBatch batch){
         if(this.destroyed==false) {
-
+            if(body3==null){
+                System.out.println("null hai");
+            }
 
             batch.draw(hehe, body3.getPosition().x, body3.getPosition().y, 0, 0, 30, 15, 1, 1, (float) Math.toDegrees(body3.getAngle()));
 
             if (destroy2==true ) {
                 GameScreen.game.getWorld().destroyBody(body3);
                 if(Missile.istank==true) {
+
                     tank2.setHealth(tank2.getHealth() - 30);
+                    tank2.body.applyLinearImpulse(1000000,1000000,18,12,true);
+
                     Missile.istank=false;
                 }
+                tank2.setFuel(100);
+                tank.setFuel(-10);
                 this.destroyed=true;
                 destroy2=false;
 
@@ -174,15 +181,15 @@ public class Missile {
 
 
     public void render(World world){
-        bodyDef.position.set(tank.getX(),tank.getY()+70);
+        bodyDef.position.set(tank.getX(),tank.getY()+30);
         body3=world.createBody(bodyDef);
         PolygonShape missy=new PolygonShape();
         missy.set(vertices);
 
 
         body3.createFixture(missy,100).setUserData("misfix");
-        Vector2 traj = new Vector2(0, 75);
-        traj.rotateDeg(300);
+        Vector2 traj = new Vector2(0, tank.getPower());
+        traj.rotateDeg(tank.getAngle());
         body3.setLinearVelocity(traj);
         body3.setTransform(body3.getPosition(), (float)Math.atan(body3.getLinearVelocity().y / body3.getLinearVelocity().x));
 

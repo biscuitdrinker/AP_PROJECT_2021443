@@ -43,8 +43,9 @@ public class pause implements Screen {
         this.newgamebutton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
-                dispose();
+                GameScreen.getCurrent().dispose();
+                game.setScreen(new GameScreen(game,new Texture(Gdx.files.internal("tank1.png"))));
+
             }
         });
 
@@ -53,8 +54,9 @@ public class pause implements Screen {
         this.resumebutton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
-                dispose();
+
+                game.setScreen(GameScreen.getCurrent());
+
             }
         });
 
@@ -73,6 +75,7 @@ public class pause implements Screen {
         this.quit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameScreen.getCurrent().dispose();
                 game.setScreen(new MainMenu(game));
                 dispose();
             }
@@ -116,23 +119,23 @@ public class pause implements Screen {
         this.stage.act(delta);
         this.stage.draw();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-            game.setScreen(new GameScreen(game));
-            dispose();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-            game.setScreen(new GameScreen(game));
-            dispose();
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
-            game.setScreen(new MainMenu(game));
-            dispose();
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
-            game.setScreen(new MainMenu(game));
-            dispose();
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+//            game.setScreen(new GameScreen(game));
+//            dispose();
+//        }
+//
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+//            game.setScreen(new GameScreen(game));
+//            dispose();
+//        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+//            game.setScreen(new MainMenu(game));
+//            dispose();
+//        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+//            game.setScreen(new MainMenu(game));
+//            dispose();
+//        }
 
 
     }

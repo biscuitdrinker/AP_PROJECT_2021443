@@ -100,29 +100,29 @@ public class MainMenu implements Screen {
         backgroundImage = new Texture(Gdx.files.internal("tanky.png"));
         Skin skin= new Skin(Gdx.files.internal("skin/quantum-horizon-ui.json"));
         this.NewGamebutton= new TextButton("NEW GAME", skin);
-     // this.NewGamebutton.setSize(100,50);
-     this.NewGamebutton.setPosition(280,140);
-     this.NewGamebutton.addListener(new ClickListener(){
-         @Override
-         public void clicked(InputEvent event, float x, float y) {
-             game.setScreen(new GameScreen(game));
-         }
-     });
+        // this.NewGamebutton.setSize(100,50);
+        this.NewGamebutton.setPosition(280,140);
+        this.NewGamebutton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new Choosetank(game));
+            }
+        });
 
-         this.Loadgamebutton= new TextButton("LOAD GAME", skin);
-     //  this.Loadgamebutton.setSize(50,20);
+        this.Loadgamebutton= new TextButton("LOAD GAME", skin);
+        //  this.Loadgamebutton.setSize(50,20);
         this.Loadgamebutton.setPosition(280,100);
         this.Loadgamebutton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new Choosetank(game));
             }
         });
 
 
         this.quitbutton= new TextButton("QUIT", skin);
-      //  this.quitbutton.setSize(50,20);
-       this.quitbutton.setPosition(280,60);
+        //  this.quitbutton.setSize(50,20);
+        this.quitbutton.setPosition(280,60);
         this.quitbutton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -133,7 +133,7 @@ public class MainMenu implements Screen {
 
 
         backgroundTexture = new TextureRegion(backgroundImage, -120, 0, 800, 400);
-       // camera = new OrthographicCamera();
+        // camera = new OrthographicCamera();
         game.getCamera().setToOrtho(false, 800, 480);
         stage.addActor(NewGamebutton);
         stage.addActor(Loadgamebutton);
@@ -167,17 +167,17 @@ public class MainMenu implements Screen {
         stage.draw();
 
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-            game.setScreen(new GameScreen(game));
-            dispose();
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-            game.setScreen(new GameScreen(game));
-            dispose();
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
-            Gdx.app.exit();
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+//            game.setScreen(new GameScreen(game));
+//            dispose();
+//        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+//            game.setScreen(new GameScreen(game));
+//            dispose();
+//        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+//            Gdx.app.exit();
+//        }
 
     }
 
